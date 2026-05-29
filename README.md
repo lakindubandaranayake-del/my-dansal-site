@@ -111,3 +111,38 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <title>WAX E-commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <nav class="flex justify-between items-center p-6 bg-white shadow-md">
+        <h1 class="text-2xl font-bold text-blue-600">WAX</h1>
+        <div class="space-x-6">
+            <a href="#" class="text-gray-700">මුල් පිටුව</a>
+            <a href="#" class="text-gray-700">Cart (0)</a>
+            <button class="bg-black text-white px-4 py-2 rounded">Login</button>
+        </div>
+    </nav>
+
+    <div class="p-10 grid grid-cols-1 md:grid-cols-4 gap-6" id="product-container">
+        <div class="border p-4 rounded-lg bg-white shadow-lg hover:shadow-2xl transition">
+            <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=500" class="w-full h-48 object-cover rounded">
+            <h2 class="mt-4 font-bold text-lg">Ghost Chili</h2>
+            <p class="text-gray-500">Rs. 500</p>
+            <button onclick="alert('Cart එකට එකතු විය!')" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-10 right-10">
+        <button onclick="alert('AI සහායකයා සක්‍රීයයි!')" class="bg-blue-600 text-white p-4 rounded-full shadow-lg">
+            AI උදව්
+        </button>
+    </div>
+
+</body>
+</html>
