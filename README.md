@@ -146,3 +146,87 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <title>WAX E-commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <nav class="flex justify-between items-center p-6 bg-white shadow-md">
+        <h1 class="text-2xl font-bold text-blue-600">WAX</h1>
+        <div class="space-x-6">
+            <a href="#" class="text-gray-700">මුල් පිටුව</a>
+            <a href="#" class="text-gray-700">Cart (0)</a>
+            <button class="bg-black text-white px-4 py-2 rounded">Login</button>
+        </div>
+    </nav>
+
+    <div class="p-10 grid grid-cols-1 md:grid-cols-4 gap-6" id="product-container">
+        <div class="border p-4 rounded-lg bg-white shadow-lg hover:shadow-2xl transition">
+            <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=500" class="w-full h-48 object-cover rounded">
+            <h2 class="mt-4 font-bold text-lg">Ghost Chili</h2>
+            <p class="text-gray-500">Rs. 500</p>
+            <button onclick="alert('Cart එකට එකතු විය!')" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-10 right-10">
+        <button onclick="alert('AI සහායකයා සක්‍රීයයි!')" class="bg-blue-600 text-white p-4 rounded-full shadow-lg">
+            AI උදව්
+        </button>
+    </div>
+
+</body>
+</html>
+// components/AIChat.js
+import { useState } from 'react';
+
+export default function AIChat() {
+  const [msg, setMsg] = useState("");
+  const [chat, setChat] = useState([]);
+
+  const sendMessage = async () => {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg })
+    });
+    const data = await res.json();
+    setChat([...chat, { user: msg, bot: data.reply }]);
+  };
+
+  return (
+    <div className="fixed bottom-10 right-10 w-80 bg-white shadow-2xl rounded-lg p-4">
+      <div className="h-60 overflow-y-auto mb-2">
+        {chat.map((c, i) => <p key={i}>You: {c.user} <br/> AI: {c.bot}</p>)}
+      </div>
+      <input 
+        className="border w-full p-2" 
+        onChange={(e) => setMsg(e.target.value)} 
+        placeholder="WAX AI ට අසන්න..."
+      />
+      <button onClick={sendMessage} className="bg-blue-600 text-white w-full mt-2">Send</button>
+    </div>
+  );
+}
+// server.js
+const express = require('express');
+const OpenAI = require('openai');
+const app = express();
+app.use(express.json());
+
+const openai = new OpenAI({ apiKey: 'YOUR_OPENAI_API_KEY' });
+
+app.post('/api/chat', async (req, res) => {
+    const { message } = req.body;
+    
+    const completion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: message }],
+    });
+
+    res.json({ reply: completion.choices[0].message.content });
+});
