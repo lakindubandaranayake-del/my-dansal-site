@@ -73,6 +73,7 @@
     </style>
 </head>
 <body>
+    
 
     <div class="hero">
         <h1>✨ දන්සැල් ලෝකය ✨</h1>
@@ -110,3 +111,38 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DansalSnap</title>
+    <style>
+        body { font-family: sans-serif; background-color: #ffffff; margin: 0; padding: 20px; text-align: center; }
+        .search-bar { width: 90%; max-width: 400px; padding: 12px; border-radius: 50px; border: 1px solid #ccc; margin-bottom: 20px; }
+        .camera-section { margin-bottom: 30px; }
+        video { width: 100%; max-width: 400px; border-radius: 20px; background: #000; }
+        .chat-box { width: 90%; max-width: 400px; height: 200px; border: 1px solid #ccc; margin: 20px auto; padding: 10px; overflow-y: scroll; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>DansalSnap</h2>
+    <input type="text" class="search-bar" placeholder="සොයන්න...">
+
+    <div class="camera-section">
+        <video id="video" autoplay playsinline></video>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+        <p><b>AI:</b> ආයුබෝවන්! දන්සැල් ගැන මොනවාද දැනගන්න ඕනේ?</p>
+    </div>
+
+    <script>
+        // කැමරාව ක්‍රියාත්මක කිරීම
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { document.getElementById('video').srcObject = stream; })
+            .catch(err => { console.error("කැමරාව සොයාගත නොහැක"); });
+    </script>
+</body>
+</html>
